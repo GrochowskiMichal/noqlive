@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   description: "NoQ is on a mission to redefine Food ordering. Stay tuned for our groundbreaking product that will change everything.",
   icons: {
     icon: [
-      { rel: "icon", url: "/favicon.ico" },
+      { rel: "icon", url: "/apple-icon.png" },
       { rel: "icon", type: "image/png", sizes: "96x96", url: "/favicon-96x96.png" },
       { rel: "icon", type: "image/png", sizes: "192x192", url: "/android-icon-192x192.png" },
     ],

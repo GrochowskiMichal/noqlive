@@ -298,7 +298,7 @@ export default function Home() {
                 className="font-poppins text-lg sm:text-xl text-black"
                 whileHover={{ scale: 1.05 }}
               >
-                <a href="https://linkedin.com/in/kacper-migdal" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
+                <a href="https://www.linkedin.com/in/kacper-migdał-781b7b219/" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
               </motion.p>
             </motion.div>
 
@@ -331,7 +331,7 @@ export default function Home() {
                 className="font-poppins text-lg sm:text-xl text-black"
                 whileHover={{ scale: 1.05 }}
               >
-                <a href="https://linkedin.com/in/michal-grochowski" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
+                <a href="https://www.linkedin.com/in/mikegrochowski/" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
               </motion.p>
             </motion.div>
           </motion.div>
