@@ -1,113 +1,342 @@
+'use client'
+import { useState, useEffect } from 'react';
 import Image from "next/image";
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
 
 export default function Home() {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 60 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
+  };
+
+  // Create separate refs and controls for each section
+  const [invisibleRef, invisibleInView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const invisibleControls = useAnimation();
+
+  const [blinkRef, blinkInView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const blinkControls = useAnimation();
+
+  const [stationaryRef, stationaryInView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const stationaryControls = useAnimation();
+
+  const [businessRef, businessInView] = useInView({ triggerOnce: true, threshold: 0.1 });
+  const businessControls = useAnimation();
+
+  // Use separate useEffects for each section
+  useEffect(() => {
+    if (invisibleInView) invisibleControls.start('visible');
+  }, [invisibleControls, invisibleInView]);
+
+  useEffect(() => {
+    if (blinkInView) blinkControls.start('visible');
+  }, [blinkControls, blinkInView]);
+
+  useEffect(() => {
+    if (stationaryInView) stationaryControls.start('visible');
+  }, [stationaryControls, stationaryInView]);
+
+  useEffect(() => {
+    if (businessInView) businessControls.start('visible');
+  }, [businessControls, businessInView]);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="min-h-screen overflow-hidden bg-[#F5F3E8]">
+      {/* Hero Section */}
+      <motion.section 
+        className="min-h-screen flex flex-col items-center justify-center text-center relative px-4 py-8"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <motion.h1 
+          className="font-bungee text-4xl sm:text-6xl md:text-9xl text-[#1A1A1A] mb-8"
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+        >
+          THINK ABOUT IT
+        </motion.h1>
+        <motion.h2 
+          className="font-poppins font-thin text-2xl sm:text-3xl md:text-5xl text-[#333333] max-w-4xl"
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 1, duration: 0.8 }}
+        >
+          You're exactly where you want to be.<br/>
+          Everything you need is within reach.<br/>
+          You haven't moved,<br/> but things start happening.<br/>
+          Exactly how you want them.
+        </motion.h2>
+        <motion.div 
+          className="mt-20 transform -translate-x-1/2"
+          animate={{ y: [0, 10, 0] }}
+          transition={{ repeat: Infinity, duration: 1.5 }}
+        >
+          <Image src="/scroll.png" width={160} height={40} alt="Scroll down" />
+        </motion.div>
+      </motion.section>
+
+      {/* Invisible Yet Powerful Section */}
+      <motion.section 
+        className="min-h-screen flex items-center justify-center px-4 py-16"
+        ref={invisibleRef}
+        initial="hidden"
+        animate={invisibleControls}
+        variants={fadeInUp}
+      >
+        <div className="flex flex-col md:flex-row items-stretch max-w-7xl w-full border-2 border-black overflow-hidden shadow-2xl">
+          <motion.div 
+            className="flex-1 p-6 sm:p-12 flex flex-col justify-center bg-transparent"
+            variants={fadeInUp}
           >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+            <h2 className="font-bungee font-bold text-4xl sm:text-6xl text-[#1A1A1A] mb-8">Invisible, <br />Yet Powerful</h2>
+            <p className="font-poppins text-xl sm:text-3xl leading-relaxed text-[#333333]">
+              Have you ever wished things would just come to you?<br/>
+              No noise, no fuss. Simply... arrive.<br/>
+              It's almost like someone knows exactly what you want,
+              and they're ready to bring it.<br/> Directly to you.
+            </p>
+          </motion.div>
+          <motion.div 
+            className="w-full md:w-1/2 relative bg-[#FAD85D] border-l-2 border-black"
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.div 
+              className="absolute inset-0 flex items-center justify-center"
+            >
+              <Image src="/sushi.png" alt="Sushi" layout="fill" objectFit="contain" priority />
+            </motion.div>
+          </motion.div>
         </div>
-      </div>
+      </motion.section>
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+      {/* Blink of an Eye Section */}
+      <motion.section 
+        className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8 bg-[#E26C52]"
+        ref={blinkRef}
+        initial="hidden"
+        animate={blinkControls}
+        variants={fadeInUp}
+      >
+        <motion.div 
+          className="w-full max-w-6xl bg-[#EDEBDF] border-2 border-black shadow-xl p-6 sm:p-12 mb-12"
+          whileHover={{ scale: 1.02 }}
+          transition={{ type: 'spring', stiffness: 300 }}
         >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
+          <h2 className="font-bungee font-bold text-4xl sm:text-6xl text-[#1A1A1A] text-center">
+            In the Blink of an Eye
           </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+        </motion.div>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+        <div className="flex flex-col md:flex-row items-stretch max-w-7xl w-full bg-[#EDEBDF] border-2 border-black overflow-hidden shadow-2xl">
+          <motion.div 
+            className="flex-1 p-6 sm:p-12 flex flex-col justify-center"
+            variants={fadeInUp}
+          >
+            <p className="font-poppins text-xl sm:text-3xl leading-relaxed text-[#333333]">
+              What if there were no interruptions?<br/>
+              No waiting around. <br/>No waving hands.<br/>
+              Just a smooth, continuous experience,
+              from start to finish.
+              Quick, effortless, seamless...<br/>
+              almost as if it's already done in the
+              moment you think about it.
+            </p>
+          </motion.div>
+          <motion.div 
+            className="w-full md:w-1/2 relative p-4 sm:p-8 bg-transparent"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: 0.5, duration: 0.8 }}
+          >
+            <Image src="/wlaptop.png" alt="Laptop" layout="responsive" width={680} height={500} objectFit="contain" priority />
+          </motion.div>
+        </div>
+      </motion.section>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+      {/* The Stationary Revolution Section */}
+      <motion.section 
+        className="min-h-screen flex items-center justify-center p-4 sm:p-8 bg-[#F5F3E8]"
+        ref={stationaryRef}
+        initial="hidden"
+        animate={stationaryControls}
+        variants={fadeInUp}
+      >
+        <motion.div 
+          className="max-w-7xl w-full bg-transparent shadow-2xl border-2 border-black p-6 sm:p-12 relative"
+          whileHover={{ boxShadow: "0px 0px 20px rgba(0,0,0,0.1)" }}
         >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
+          <motion.div 
+            className="absolute -top-6 left-12 text-white px-6 py-3 bg-[#1A1A1A]"
+            whileHover={{ scale: 1.1 }}
+          >
+            <h3 className="font-bold text-xl bg-black py-2 px-2 text-[#EDEBDF]">ANSWER</h3>
+          </motion.div>
+          <div className="flex flex-col md:flex-row justify-between items-start mt-8">
+            <motion.div 
+              className="w-full md:w-2/3 pr-0 md:pr-8"
+              variants={fadeInUp}
+            >
+              <h2 className="font-bungee font-bold text-4xl sm:text-6xl text-[#1A1A1A] mb-6">
+                The Stationary<br />Revolution
+              </h2>
+              <p className="font-poppins font-semibold text-2xl sm:text-4xl text-[#333333] mb-8">
+                How can staying put bring<br/>
+                the world to your fingertips?
+              </p>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center">
+                <motion.div 
+                  className="bg-yellow-300 border border-black inline-block px-3 py-2 mb-4 sm:mb-0 sm:mr-4"
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <span className="font-regular text-xl sm:text-2xl text-black">convenience</span>
+                </motion.div>
+                <p className="text-xl sm:text-2xl leading-relaxed text-black sm:ml-8">
+                  The less you move, the more happens.<br />
+                  The less you wait, the more you get.<br />
+                  Stay exactly where you are, and watch as<br />
+                  everything you need falls perfectly into place.
+                </p>
+              </div>
+            </motion.div>
+            <motion.div 
+              className="w-full md:w-1/3 mt-8 md:mt-0"
+              initial={{ opacity: 0, x: 50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+            >
+              <Image src="/ramen.png" alt="Ramen" layout="responsive" width={500} height={500} objectFit="contain" priority />
+            </motion.div>
+          </div>
+        </motion.div>
+      </motion.section>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+      {/* Final Call to Action Section */}
+      <motion.section 
+        className="min-h-screen flex flex-col items-center justify-center text-center px-4 py-8"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1 }}
+      >
+        <motion.h1 
+          className="font-bungee font-bold text-4xl sm:text-6xl text-[#1A1A1A] mb-12"
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
         >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+          STAY SEATED, STAY TUNED
+        </motion.h1>
+        <motion.div
+          initial={{ scale: 0 }}
+          animate={{ scale: 1 }}
+          transition={{ type: 'spring', stiffness: 260, damping: 20 }}
+          className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl"
+        >
+          <Image src="/logowslang.svg" alt="Logo" layout="responsive" width={700} height={200} priority />
+        </motion.div>
+      </motion.section>
+
+      {/* Business Contact Section */}
+      <motion.section 
+        className="min-h-screen flex items-center justify-center p-4 sm:p-8 bg-[#F5F3E8]"
+        ref={businessRef}
+        initial="hidden"
+        animate={businessControls}
+        variants={fadeInUp}
+      >
+        <div className="max-w-4xl w-full">
+          <motion.div 
+            className="bg-transparent p-4 mb-10 sm:mb-20 border-2 border-black shadow-md w-full sm:w-7/12"
+            whileHover={{ scale: 1.05, rotate: -1 }}
+            transition={{ type: 'spring', stiffness: 300 }}
+          >
+            <h2 className="font-bungee text-3xl sm:text-4xl text-[#1A1A1A] px-2 py-2">Business Contact</h2>
+          </motion.div>
+    
+          <motion.div 
+            className="flex flex-col sm:flex-row justify-between items-stretch bg-[#F5F3E8] border-2 border-black overflow-hidden shadow-lg"
+            whileHover={{ boxShadow: "0px 0px 15px rgba(0,0,0,0.2)" }}
+          >
+            <motion.div 
+              className="flex-1 p-6 border-b-2 sm:border-b-0 sm:border-r-2 border-black"
+              variants={fadeInUp}
+              whileHover={{ scale: 1.05, zIndex: 1 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+            >
+              <motion.h3 
+                className="font-poppins font-semibold text-4xl sm:text-6xl mb-5 text-[#E89C4B]"
+              >
+                Kacper Migdał
+              </motion.h3>
+              <motion.h3 
+                className="font-poppins font-semibold text-2xl sm:text-3xl mb-4 text-[#333333]"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                Chief Business Samurai
+              </motion.h3>
+              <motion.p 
+                className="font-poppins text-xl sm:text-2xl text-black mb-2"
+                whileHover={{ scale: 1.05 }}
+              >
+                <a href="mailto:kacper@noqueue.pl" className="hover:underline">kacper@noqueue.pl</a>
+              </motion.p>
+              <motion.p 
+                className="font-poppins text-lg sm:text-xl text-black"
+                whileHover={{ scale: 1.05 }}
+              >
+                <a href="https://linkedin.com/in/kacper-migdal" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
+              </motion.p>
+            </motion.div>
+
+            <motion.div 
+              className="flex-1 p-6"
+              variants={fadeInUp}
+              whileHover={{ scale: 1.05, zIndex: 1 }}
+              transition={{ type: 'spring', stiffness: 300 }}
+            >
+              <motion.h3 
+                className="font-poppins font-semibold text-4xl sm:text-6xl mb-5 text-[#FAD85D]"
+              >
+                Michał Grochowski
+              </motion.h3>
+              <motion.h3 
+                className="font-poppins font-semibold text-2xl sm:text-3xl mb-4 text-[#333333]"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+              >
+                Chief Technology Ninja
+              </motion.h3>
+              <motion.p 
+                className="font-poppins text-xl sm:text-2xl text-black mb-2"
+                whileHover={{ scale: 1.05 }}
+              >
+                <a href="mailto:michal@noqueue.pl" className="hover:underline">michal@noqueue.pl</a>
+              </motion.p>
+              <motion.p 
+                className="font-poppins text-lg sm:text-xl text-black"
+                whileHover={{ scale: 1.05 }}
+              >
+                <a href="https://linkedin.com/in/michal-grochowski" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
+              </motion.p>
+            </motion.div>
+          </motion.div>
+        </div>
+      </motion.section>
+    </div>
   );
 }
