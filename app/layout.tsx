@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import Script from "next/script"; // Import the Script component
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "NoQ - Coming Soon",
-  description: "NoQ is on a mission to redefine Food ordering. Stay tuned for our groundbreaking product that will change everything.",
+  description:
+    "NoQ is on a mission to redefine Food ordering. Stay tuned for our groundbreaking product that will change everything.",
   icons: {
     icon: [
       { rel: "icon", url: "/apple-icon.png" },
@@ -26,7 +28,8 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "NoQ - Coming Soon",
-    description: "NoQ is on a mission to redefine Food ordering. Stay tuned for our groundbreaking product that will change everything.",
+    description:
+      "NoQ is on a mission to redefine Food ordering. Stay tuned for our groundbreaking product that will change everything.",
     url: "https://noqueue.pl",
     images: [
       {
@@ -40,7 +43,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "NoQ - Revolutionizing [Your Industry]",
-    description: "Something big is coming. Join our waitlist to be among the first to experience NoQ and its groundbreaking features.",
+    description:
+      "Something big is coming. Join our waitlist to be among the first to experience NoQ and its groundbreaking features.",
     images: ["https://noqueue.pl/twitter-image.jpg"], // Placeholder for Twitter image
   },
 };
@@ -53,7 +57,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* Metadata including favicon and icons is handled by Next.js automatically */}
+        {/* Google Analytics Script */}
+        <Script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=G-YV47CB2E9M`}
+        />
+        <Script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-YV47CB2E9M');
+          `}
+        </Script>
       </head>
       <body className={inter.className}>
         {children}
