@@ -18,44 +18,39 @@ export default function Home() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
   };
 
-  // Create separate refs and controls for each section
-  const [invisibleRef, invisibleInView] = useInView({ triggerOnce: true, threshold: 0.1 });
-  const invisibleControls = useAnimation();
-
-  const [blinkRef, blinkInView] = useInView({ triggerOnce: true, threshold: 0.1 });
-  const blinkControls = useAnimation();
-
-  const [stationaryRef, stationaryInView] = useInView({ triggerOnce: true, threshold: 0.1 });
-  const stationaryControls = useAnimation();
-
-  const [businessRef, businessInView] = useInView({ triggerOnce: true, threshold: 0.1 });
-  const businessControls = useAnimation();
-
-  // Use separate useEffects for each section
-  useEffect(() => {
-    if (invisibleInView) invisibleControls.start('visible');
-  }, [invisibleControls, invisibleInView]);
+  const sections = ['hero', 'invisible', 'blink', 'stationary', 'cta', 'business'];
+  const sectionRefs = sections.map(() => useInView({ triggerOnce: true, threshold: 0.1 }));
+  const sectionControls = sections.map(() => useAnimation());
 
   useEffect(() => {
-    if (blinkInView) blinkControls.start('visible');
-  }, [blinkControls, blinkInView]);
-
-  useEffect(() => {
-    if (stationaryInView) stationaryControls.start('visible');
-  }, [stationaryControls, stationaryInView]);
-
-  useEffect(() => {
-    if (businessInView) businessControls.start('visible');
-  }, [businessControls, businessInView]);
+    sectionRefs.forEach((ref, index) => {
+      if (ref[1]) sectionControls[index].start('visible');
+    });
+  }, [sectionRefs, sectionControls]);
 
   return (
-    <div className="min-h-screen overflow-hidden bg-[#F5F3E8]">
+    <div className="min-h-screen overflow-hidden bg-gradient-to-b from-[#F5F3E8] to-[#E6E4D9]">
+      {/* Navigation Dots */}
+      <div className="fixed right-8 top-1/2 transform -translate-y-1/2 z-50">
+        {sections.map((_, index) => (
+          <motion.div
+            key={index}
+            className={`w-3 h-3 rounded-full my-2 cursor-pointer ${
+              Math.floor(scrollY / window.innerHeight) === index ? 'bg-[#1A1A1A]' : 'bg-[#CCCCCC]'
+            }`}
+            whileHover={{ scale: 1.2 }}
+            onClick={() => window.scrollTo({ top: index * window.innerHeight, behavior: 'smooth' })}
+          />
+        ))}
+      </div>
+
       {/* Hero Section */}
       <motion.section 
         className="min-h-screen flex flex-col items-center justify-center text-center relative px-4 py-8 mb-16 sm:mb-0"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
+        ref={sectionRefs[0][0]}
       >
         <motion.h1 
           className="font-bungee text-4xl sm:text-6xl md:text-9xl text-[#1A1A1A] mb-8"
@@ -88,12 +83,12 @@ export default function Home() {
       {/* Invisible Yet Powerful Section */}
       <motion.section 
         className="min-h-screen flex items-center justify-center px-4 py-16 mb-16 sm:mb-0"
-        ref={invisibleRef}
+        ref={sectionRefs[1][0]}
         initial="hidden"
-        animate={invisibleControls}
+        animate={sectionControls[1]}
         variants={fadeInUp}
       >
-        <div className="flex flex-col md:flex-row items-stretch max-w-7xl w-full border-2 border-[#1A1A1A] overflow-hidden shadow-2xl">
+        <div className="flex flex-col md:flex-row items-stretch max-w-7xl w-full border-2 border-[#1A1A1A] overflow-hidden shadow-2xl rounded-lg">
           <motion.div 
             className="flex-1 p-6 sm:p-12 flex flex-col justify-center bg-transparent"
             variants={fadeInUp}
@@ -114,6 +109,9 @@ export default function Home() {
           >
             <motion.div 
               className="absolute inset-0 flex items-center justify-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.8 }}
             >
               <Image src="/sushi.png" alt="Sushi" layout="fill" objectFit="contain" priority />
             </motion.div>
@@ -124,13 +122,13 @@ export default function Home() {
       {/* Blink of an Eye Section */}
       <motion.section 
         className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8 bg-[#E26C52] mb-16 sm:mb-0"
-        ref={blinkRef}
+        ref={sectionRefs[2][0]}
         initial="hidden"
-        animate={blinkControls}
+        animate={sectionControls[2]}
         variants={fadeInUp}
       >
         <motion.div 
-          className="w-full max-w-6xl bg-[#EDEBDF] border-2 border-[#1A1A1A] shadow-xl p-6 sm:p-12 mb-12"
+          className="w-full max-w-6xl bg-[#EDEBDF] border-2 border-[#1A1A1A] shadow-xl p-6 sm:p-12 mb-12 rounded-lg"
           whileHover={{ scale: 1.02 }}
           transition={{ type: 'spring', stiffness: 300 }}
         >
@@ -139,7 +137,7 @@ export default function Home() {
           </h2>
         </motion.div>
 
-        <div className="flex flex-col md:flex-row items-stretch max-w-7xl w-full bg-[#EDEBDF] border-2 border-[#1A1A1A] overflow-hidden shadow-2xl">
+        <div className="flex flex-col md:flex-row items-stretch max-w-7xl w-full bg-[#EDEBDF] border-2 border-[#1A1A1A] overflow-hidden shadow-2xl rounded-lg">
           <motion.div 
             className="flex-1 p-6 sm:p-12 flex flex-col justify-center"
             variants={fadeInUp}
@@ -168,17 +166,17 @@ export default function Home() {
       {/* The Stationary Revolution Section */}
       <motion.section 
         className="min-h-screen flex items-center justify-center p-4 sm:p-8 bg-[#F5F3E8] mb-16 sm:mb-0"
-        ref={stationaryRef}
+        ref={sectionRefs[3][0]}
         initial="hidden"
-        animate={stationaryControls}
+        animate={sectionControls[3]}
         variants={fadeInUp}
       >
         <motion.div 
-          className="max-w-7xl w-full bg-transparent shadow-2xl border-2 border-[#1A1A1A] p-6 sm:p-12 relative"
+          className="max-w-7xl w-full bg-transparent shadow-2xl border-2 border-[#1A1A1A] p-6 sm:p-12 relative rounded-lg"
           whileHover={{ boxShadow: "0px 0px 20px rgba(0,0,0,0.1)" }}
         >
           <motion.div 
-            className="absolute -top-6 left-12 text-white px-6 py-3 bg-[#1A1A1A]"
+            className="absolute -top-6 left-12 text-white px-6 py-3 bg-[#1A1A1A] rounded-t-lg"
             whileHover={{ scale: 1.1 }}
           >
             <h3 className="font-bold text-xl bg-[#1A1A1A] py-2 px-2 text-[#EDEBDF]">ANSWER</h3>
@@ -197,7 +195,7 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row items-start sm:items-center">
                 <motion.div 
-                  className="bg-yellow-300 border border-[#1A1A1A] inline-block px-3 py-2 mb-4 sm:mb-0 sm:mr-4"
+                  className="bg-yellow-300 border border-[#1A1A1A] inline-block px-3 py-2 mb-4 sm:mb-0 sm:mr-4 rounded-md"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
@@ -229,6 +227,7 @@ export default function Home() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
+        ref={sectionRefs[4][0]}
       >
         <motion.h1 
           className="font-bungee font-bold text-4xl sm:text-6xl text-[#1A1A1A] mb-12"
@@ -251,14 +250,14 @@ export default function Home() {
       {/* Business Contact Section */}
       <motion.section 
         className="min-h-screen flex items-center justify-center p-4 sm:p-8 bg-[#F5F3E8]"
-        ref={businessRef}
+        ref={sectionRefs[5][0]}
         initial="hidden"
-        animate={businessControls}
+        animate={sectionControls[5]}
         variants={fadeInUp}
       >
         <div className="max-w-4xl w-full">
           <motion.div 
-            className="bg-transparent p-4 mb-10 sm:mb-20 border-2 border-[#1A1A1A] shadow-md w-full sm:w-7/12"
+            className="bg-transparent p-4 mb-10 sm:mb-20 border-2 border-[#1A1A1A] shadow-md w-full sm:w-7/12 rounded-lg"
             whileHover={{ scale: 1.05, rotate: -1 }}
             transition={{ type: 'spring', stiffness: 300 }}
           >
@@ -266,7 +265,7 @@ export default function Home() {
           </motion.div>
     
           <motion.div 
-            className="flex flex-col sm:flex-row justify-between items-stretch bg-[#F5F3E8] border-2 border-[#1A1A1A] overflow-hidden shadow-lg"
+            className="flex flex-col sm:flex-row justify-between items-stretch bg-[#F5F3E8] border-2 border-[#1A1A1A] overflow-hidden shadow-lg rounded-lg"
             whileHover={{ boxShadow: "0px 0px 15px rgba(0,0,0,0.2)" }}
           >
             <motion.div 
