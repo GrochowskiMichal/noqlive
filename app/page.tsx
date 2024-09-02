@@ -52,7 +52,7 @@ export default function Home() {
     <div className="min-h-screen overflow-hidden bg-[#F5F3E8]">
       {/* Hero Section */}
       <motion.section 
-        className="min-h-screen flex flex-col items-center justify-center text-center relative px-4 py-8"
+        className="min-h-screen flex flex-col items-center justify-center text-center relative px-4 py-8 mb-16 sm:mb-0"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
@@ -87,7 +87,7 @@ export default function Home() {
 
       {/* Invisible Yet Powerful Section */}
       <motion.section 
-        className="min-h-screen flex items-center justify-center px-4 py-16"
+        className="min-h-screen flex items-center justify-center px-4 py-16 mb-16 sm:mb-0"
         ref={invisibleRef}
         initial="hidden"
         animate={invisibleControls}
@@ -107,7 +107,7 @@ export default function Home() {
             </p>
           </motion.div>
           <motion.div 
-            className="w-full md:w-1/2 relative bg-[#FAD85D] border-l-2 border-black"
+            className="w-full md:w-1/2 relative bg-[#FAD85D] border-t-2 md:border-t-0 md:border-l-2 border-black"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             transition={{ duration: 0.8 }}
@@ -123,7 +123,7 @@ export default function Home() {
 
       {/* Blink of an Eye Section */}
       <motion.section 
-        className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8 bg-[#E26C52]"
+        className="min-h-screen flex flex-col items-center justify-center p-4 sm:p-8 bg-[#E26C52] mb-16 sm:mb-0"
         ref={blinkRef}
         initial="hidden"
         animate={blinkControls}
@@ -167,7 +167,7 @@ export default function Home() {
 
       {/* The Stationary Revolution Section */}
       <motion.section 
-        className="min-h-screen flex items-center justify-center p-4 sm:p-8 bg-[#F5F3E8]"
+        className="min-h-screen flex items-center justify-center p-4 sm:p-8 bg-[#F5F3E8] mb-16 sm:mb-0"
         ref={stationaryRef}
         initial="hidden"
         animate={stationaryControls}
@@ -225,7 +225,7 @@ export default function Home() {
 
       {/* Final Call to Action Section */}
       <motion.section 
-        className="min-h-screen flex flex-col items-center justify-center text-center px-4 py-8"
+        className="min-h-screen flex flex-col items-center justify-center text-center px-4 py-8 mb-16 sm:mb-0"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
