@@ -3,15 +3,15 @@ import { useState, useEffect } from 'react';
 import Image from "next/image";
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { useScrollY } from '../hooks/useScrollY';
+import dynamic from 'next/dynamic';
+
+const NavigationDots = dynamic(() => import('../components/NavigationDots').then(mod => mod.NavigationDots), {
+  ssr: false
+});
 
 export default function Home() {
-  const [scrollY, setScrollY] = useState(0);
-
-  useEffect(() => {
-    const handleScroll = () => setScrollY(window.scrollY);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const scrollY = useScrollY();
 
   const fadeInUp = {
     hidden: { opacity: 0, y: 60 },
@@ -30,19 +30,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen overflow-hidden bg-gradient-to-b from-[#F5F3E8] to-[#E6E4D9]">
-      {/* Navigation Dots */}
-      <div className="fixed right-8 top-1/2 transform -translate-y-1/2 z-50">
-        {sections.map((_, index) => (
-          <motion.div
-            key={index}
-            className={`w-3 h-3 rounded-full my-2 cursor-pointer ${
-              Math.floor(scrollY / window.innerHeight) === index ? 'bg-[#1A1A1A]' : 'bg-[#CCCCCC]'
-            }`}
-            whileHover={{ scale: 1.2 }}
-            onClick={() => window.scrollTo({ top: index * window.innerHeight, behavior: 'smooth' })}
-          />
-        ))}
-      </div>
+      <NavigationDots sections={sections} />
 
       {/* Hero Section */}
       <motion.section 
