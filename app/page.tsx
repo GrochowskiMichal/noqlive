@@ -93,7 +93,7 @@ export default function Home() {
         animate={invisibleControls}
         variants={fadeInUp}
       >
-        <div className="flex flex-col md:flex-row items-stretch max-w-7xl w-full border-2 border-black overflow-hidden shadow-2xl">
+        <div className="flex flex-col md:flex-row items-stretch max-w-7xl w-full border-2 border-[#1A1A1A] overflow-hidden shadow-2xl">
           <motion.div 
             className="flex-1 p-6 sm:p-12 flex flex-col justify-center bg-transparent"
             variants={fadeInUp}
@@ -107,7 +107,7 @@ export default function Home() {
             </p>
           </motion.div>
           <motion.div 
-            className="w-full md:w-1/2 relative bg-[#FAD85D] border-t-2 md:border-t-0 md:border-l-2 border-black"
+            className="w-full md:w-1/2 relative bg-[#FAD85D] border-t-2 md:border-t-0 md:border-l-2 border-[#1A1A1A]"
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             transition={{ duration: 0.8 }}
@@ -130,7 +130,7 @@ export default function Home() {
         variants={fadeInUp}
       >
         <motion.div 
-          className="w-full max-w-6xl bg-[#EDEBDF] border-2 border-black shadow-xl p-6 sm:p-12 mb-12"
+          className="w-full max-w-6xl bg-[#EDEBDF] border-2 border-[#1A1A1A] shadow-xl p-6 sm:p-12 mb-12"
           whileHover={{ scale: 1.02 }}
           transition={{ type: 'spring', stiffness: 300 }}
         >
@@ -139,7 +139,7 @@ export default function Home() {
           </h2>
         </motion.div>
 
-        <div className="flex flex-col md:flex-row items-stretch max-w-7xl w-full bg-[#EDEBDF] border-2 border-black overflow-hidden shadow-2xl">
+        <div className="flex flex-col md:flex-row items-stretch max-w-7xl w-full bg-[#EDEBDF] border-2 border-[#1A1A1A] overflow-hidden shadow-2xl">
           <motion.div 
             className="flex-1 p-6 sm:p-12 flex flex-col justify-center"
             variants={fadeInUp}
@@ -174,14 +174,14 @@ export default function Home() {
         variants={fadeInUp}
       >
         <motion.div 
-          className="max-w-7xl w-full bg-transparent shadow-2xl border-2 border-black p-6 sm:p-12 relative"
+          className="max-w-7xl w-full bg-transparent shadow-2xl border-2 border-[#1A1A1A] p-6 sm:p-12 relative"
           whileHover={{ boxShadow: "0px 0px 20px rgba(0,0,0,0.1)" }}
         >
           <motion.div 
             className="absolute -top-6 left-12 text-white px-6 py-3 bg-[#1A1A1A]"
             whileHover={{ scale: 1.1 }}
           >
-            <h3 className="font-bold text-xl bg-black py-2 px-2 text-[#EDEBDF]">ANSWER</h3>
+            <h3 className="font-bold text-xl bg-[#1A1A1A] py-2 px-2 text-[#EDEBDF]">ANSWER</h3>
           </motion.div>
           <div className="flex flex-col md:flex-row justify-between items-start mt-8">
             <motion.div 
@@ -197,13 +197,13 @@ export default function Home() {
               </p>
               <div className="flex flex-col sm:flex-row items-start sm:items-center">
                 <motion.div 
-                  className="bg-yellow-300 border border-black inline-block px-3 py-2 mb-4 sm:mb-0 sm:mr-4"
+                  className="bg-yellow-300 border border-[#1A1A1A] inline-block px-3 py-2 mb-4 sm:mb-0 sm:mr-4"
                   whileHover={{ scale: 1.1 }}
                   whileTap={{ scale: 0.95 }}
                 >
-                  <span className="font-regular text-xl sm:text-2xl text-black">convenience</span>
+                  <span className="font-regular text-xl sm:text-2xl text-[#1A1A1A]">convenience</span>
                 </motion.div>
-                <p className="text-xl sm:text-2xl leading-relaxed text-black sm:ml-8">
+                <p className="text-xl sm:text-2xl leading-relaxed text-[#1A1A1A] sm:ml-8">
                   The less you move, the more happens.<br />
                   The less you wait, the more you get.<br />
                   Stay exactly where you are, and watch as<br />
@@ -258,7 +258,7 @@ export default function Home() {
       >
         <div className="max-w-4xl w-full">
           <motion.div 
-            className="bg-transparent p-4 mb-10 sm:mb-20 border-2 border-black shadow-md w-full sm:w-7/12"
+            className="bg-transparent p-4 mb-10 sm:mb-20 border-2 border-[#1A1A1A] shadow-md w-full sm:w-7/12"
             whileHover={{ scale: 1.05, rotate: -1 }}
             transition={{ type: 'spring', stiffness: 300 }}
           >
@@ -266,11 +266,11 @@ export default function Home() {
           </motion.div>
     
           <motion.div 
-            className="flex flex-col sm:flex-row justify-between items-stretch bg-[#F5F3E8] border-2 border-black overflow-hidden shadow-lg"
+            className="flex flex-col sm:flex-row justify-between items-stretch bg-[#F5F3E8] border-2 border-[#1A1A1A] overflow-hidden shadow-lg"
             whileHover={{ boxShadow: "0px 0px 15px rgba(0,0,0,0.2)" }}
           >
             <motion.div 
-              className="flex-1 p-6 border-b-2 sm:border-b-0 sm:border-r-2 border-black"
+              className="flex-1 p-6 border-b-2 sm:border-b-0 sm:border-r-2 border-[#1A1A1A]"
               variants={fadeInUp}
               whileHover={{ scale: 1.05, zIndex: 1 }}
               transition={{ type: 'spring', stiffness: 300 }}
@@ -289,13 +289,13 @@ export default function Home() {
                 Chief Business Samurai
               </motion.h3>
               <motion.p 
-                className="font-poppins text-xl sm:text-2xl text-black mb-2"
+                className="font-poppins text-xl sm:text-2xl text-[#1A1A1A] mb-2"
                 whileHover={{ scale: 1.05 }}
               >
                 <a href="mailto:kacper@noqueue.pl" className="hover:underline">kacper@noqueue.pl</a>
               </motion.p>
               <motion.p 
-                className="font-poppins text-lg sm:text-xl text-black"
+                className="font-poppins text-lg sm:text-xl text-[#1A1A1A]"
                 whileHover={{ scale: 1.05 }}
               >
                 <a href="https://www.linkedin.com/in/kacper-migdał-781b7b219/" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
@@ -322,13 +322,13 @@ export default function Home() {
                 Chief Technology Ninja
               </motion.h3>
               <motion.p 
-                className="font-poppins text-xl sm:text-2xl text-black mb-2"
+                className="font-poppins text-xl sm:text-2xl text-[#1A1A1A] mb-2"
                 whileHover={{ scale: 1.05 }}
               >
                 <a href="mailto:michal@noqueue.pl" className="hover:underline">michal@noqueue.pl</a>
               </motion.p>
               <motion.p 
-                className="font-poppins text-lg sm:text-xl text-black"
+                className="font-poppins text-lg sm:text-xl text-[#1A1A1A]"
                 whileHover={{ scale: 1.05 }}
               >
                 <a href="https://www.linkedin.com/in/mikegrochowski/" target="_blank" rel="noopener noreferrer" className="hover:underline">LinkedIn</a>
