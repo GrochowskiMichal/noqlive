@@ -5,6 +5,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { useScrollY } from '../hooks/useScrollY';
 import dynamic from 'next/dynamic';
+import QuantumConvenienceSection from '../components/QuantumConvenienceSection';
 
 const NavigationDots = dynamic(() => import('../components/NavigationDots').then(mod => mod.NavigationDots), {
   ssr: false
@@ -18,7 +19,7 @@ export default function Home() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
   };
 
-  const sections = ['hero', 'invisible', 'blink', 'stationary', 'cta', 'business'];
+  const sections = ['hero', 'invisible', 'blink', 'quantum', 'stationary', 'cta', 'business'];
   const sectionRefs = sections.map(() => useInView({ triggerOnce: true, threshold: 0.1 }));
   const sectionControls = sections.map(() => useAnimation());
 
@@ -29,7 +30,7 @@ export default function Home() {
   }, [sectionRefs, sectionControls]);
 
   return (
-    <div className="min-h-screen overflow-hidden bg-gradient-to-b from-[#F5F3E8] to-[#E6E4D9]">
+    <div className="min-h-screen overflow-hidden bg-gradient-to-b from-[#EDEBDF] to-[#E6E4D9]">
       <NavigationDots sections={sections} />
 
       {/* Hero Section */}
@@ -150,10 +151,10 @@ export default function Home() {
           </motion.div>
         </div>
       </motion.section>
-
+  
       {/* The Stationary Revolution Section */}
       <motion.section 
-        className="min-h-screen flex items-center justify-center p-4 sm:p-8 bg-[#F5F3E8] mb-16 sm:mb-0"
+        className="min-h-screen flex items-center justify-center p-4 sm:p-8 bg-[#EDEBDF] mb-16 sm:mb-0"
         ref={sectionRefs[3][0]}
         initial="hidden"
         animate={sectionControls[3]}
@@ -208,7 +209,7 @@ export default function Home() {
           </div>
         </motion.div>
       </motion.section>
-
+<QuantumConvenienceSection />
       {/* Final Call to Action Section */}
       <motion.section 
         className="min-h-screen flex flex-col items-center justify-center text-center px-4 py-8 mb-16 sm:mb-0"
@@ -237,7 +238,7 @@ export default function Home() {
 
       {/* Business Contact Section */}
       <motion.section 
-        className="min-h-screen flex items-center justify-center p-4 sm:p-8 bg-[#F5F3E8]"
+        className="min-h-screen flex items-center justify-center p-4 sm:p-8 bg-[#EDEBDF]"
         ref={sectionRefs[5][0]}
         initial="hidden"
         animate={sectionControls[5]}
@@ -253,7 +254,7 @@ export default function Home() {
           </motion.div>
     
           <motion.div 
-            className="flex flex-col sm:flex-row justify-between items-stretch bg-[#F5F3E8] border-2 border-[#1A1A1A] overflow-hidden shadow-lg rounded-lg"
+            className="flex flex-col sm:flex-row justify-between items-stretch bg-[#EDEBDF] border-2 border-[#1A1A1A] overflow-hidden shadow-lg rounded-lg"
             whileHover={{ boxShadow: "0px 0px 15px rgba(0,0,0,0.2)" }}
           >
             <motion.div 
